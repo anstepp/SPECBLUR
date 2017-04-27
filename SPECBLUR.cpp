@@ -1,10 +1,5 @@
-/* SPECBLUR - sample code for a very basic instrument
-
-   All it does is copy samples from one file (or audio device) to
-   another, processing only one input channel for a given note.  You
-   can choose the input channel, amplitude and pan for the output.
-   Shows how to implement real-time control of parameters.
-   Please send me suggestions for comment clarification.
+/* SPECBLUR - an instrument to blur a spectrum in the frequency and time
+domain
 
    p0 = output start time
    p1 = input start time
@@ -15,8 +10,6 @@
 
    p3 (amp) and p5 (pan) can receive updates from a table or real-time
    control source.
-
-   John Gibson <johgibso at indiana dot edu>, 4/12/00; rev. for v4, 6/14/05
 */
 #include <stdio.h>
 #include <stdlib.h>
