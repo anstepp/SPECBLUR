@@ -1,6 +1,6 @@
 include package.conf
 
-NAME = MYINST
+NAME = SPECBLUR
 
 OBJS = $(NAME).o
 CMIXOBJS += $(PROFILE_O)

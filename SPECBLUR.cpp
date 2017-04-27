@@ -1,4 +1,4 @@
-/* MYINST - sample code for a very basic instrument
+/* SPECBLUR - sample code for a very basic instrument
 
    All it does is copy samples from one file (or audio device) to
    another, processing only one input channel for a given note.  You
@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ugens.h>
-#include "MYINST.h"          // declarations for this instrument class
+#include "SPECBLUR.h"          // declarations for this instrument class
 #include <rt.h>
 #include <rtdefs.h>
 
@@ -32,7 +32,7 @@
 // to see at a glance whether you're looking at a local variable or a
 // data member.
 
-MYINST::MYINST()
+SPECBLUR::SPECBLUR()
 	: _in(NULL), _branch(0)
 {
 }
@@ -41,7 +41,7 @@ MYINST::MYINST()
 // Destruct an instance of this instrument, freeing memory for the input buffer,
 // unit generator objects, etc.
 
-MYINST::~MYINST()
+SPECBLUR::~SPECBLUR()
 {
 	delete [] _in;
 }
@@ -55,7 +55,7 @@ MYINST::~MYINST()
 // report the error.  If you just want to warn the user and keep going,
 // call warn() or rterror() with a message.
 
-int MYINST::init(double p[], int n_args)
+int SPECBLUR::init(double p[], int n_args)
 {
 	_nargs = n_args;		// store this for use in doupdate()
 
@@ -86,7 +86,7 @@ int MYINST::init(double p[], int n_args)
 	// whether this should exit the program or keep going.
 
 	if (outputChannels() > 2)
-		return die("MYINST", "Use mono or stereo output only.");
+		return die("SPECBLUR", "Use mono or stereo output only.");
 
 	// Set file pointer on audio input.  If the input source is real-time or
 	// an aux bus, then <inskip> must be zero.  The system will return an
@@ -100,7 +100,7 @@ int MYINST::init(double p[], int n_args)
 	// in rtsetinput.
 
 	if (_inchan >= inputChannels())
-		return die("MYINST", "You asked for channel %d of a %d-channel input.",
+		return die("SPECBLUR", "You asked for channel %d of a %d-channel input.",
 		                                             _inchan, inputChannels());
 
 	// Return the number of sample frames that we'll write to output, which
@@ -119,7 +119,7 @@ int MYINST::init(double p[], int n_args)
 // time, then all notes in the score would allocate memory then, resulting
 // in a potentially excessive memory footprint.
 
-int MYINST::configure()
+int SPECBLUR::configure()
 {
 	// RTBUFSAMPS is the maximum number of sample frames processed for each
 	// call to run() below.
@@ -132,7 +132,7 @@ int MYINST::configure()
 
 // Called at the control rate to update parameters like amplitude, pan, etc.
 
-void MYINST::doupdate()
+void SPECBLUR::doupdate()
 {
 	// The Instrument base class update() function fills the <p> array with
 	// the current values of all pfields.  There is a way to limit the values
@@ -152,7 +152,7 @@ void MYINST::doupdate()
 // Called by the scheduler for every time slice in which this instrument
 // should run.  This is where the real work of the instrument is done.
 
-int MYINST::run()
+int SPECBLUR::run()
 {
 	// framesToRun() gives the number of sample frames -- 1 sample for each
 	// channel -- that we have to write during this scheduler time slice.
@@ -214,10 +214,10 @@ int MYINST::run()
 // and to set up the bus-routing fields in the base Instrument class.
 // This happens for every "note" in a score.
 
-Instrument *makeMYINST()
+Instrument *makeSPECBLUR()
 {
-	MYINST *inst = new MYINST();
-	inst->set_bus_config("MYINST");
+	SPECBLUR *inst = new SPECBLUR();
+	inst->set_bus_config("SPECBLUR");
 
 	return inst;
 }
@@ -229,7 +229,7 @@ Instrument *makeMYINST()
 
 void rtprofile()
 {
-	RT_INTRO("MYINST", makeMYINST);
+	RT_INTRO("SPECBLUR", makeSPECBLUR);
 }
 
 
