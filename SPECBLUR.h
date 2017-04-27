@@ -1,10 +1,10 @@
 #include <Instrument.h>      // the base class for this instrument
 
-class MYINST : public Instrument {
+class SPECBLUR : public Instrument {
 
 public:
-	MYINST();
-	virtual ~MYINST();
+	SPECBLUR();
+	virtual ~SPECBLUR();
 	virtual int init(double *, int);
 	virtual int configure();
 	virtual int run();
